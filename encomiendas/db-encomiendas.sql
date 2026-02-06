@@ -1,14 +1,9 @@
--- ======================================
--- SISTEMA DE ENCOMIENDAS
--- ======================================
 
 SELECT * FROM cliente;
 SELECT * FROM sucursal;
 SELECT * FROM tarifa;
 
--- ----------------------
--- CLIENTE
--- ----------------------
+
 CREATE TABLE cliente (
     id_cliente SERIAL PRIMARY KEY,
     nombre     VARCHAR(100) NOT NULL,
@@ -16,18 +11,14 @@ CREATE TABLE cliente (
     telefono   VARCHAR(20)
 );
 
--- ----------------------
--- SUCURSAL
--- ----------------------
+
 CREATE TABLE sucursal (
     id_sucursal SERIAL PRIMARY KEY,
     nombre      VARCHAR(100) NOT NULL,
     ciudad      VARCHAR(50) NOT NULL
 );
 
--- ----------------------
--- TARIFA
--- ----------------------
+
 CREATE TABLE tarifa (
     id_tarifa   SERIAL PRIMARY KEY,
     descripcion VARCHAR(100),
@@ -35,17 +26,13 @@ CREATE TABLE tarifa (
     precio_kg   NUMERIC(10,2) NOT NULL CHECK (precio_kg >= 0)
 );
 
--- ----------------------
--- ESTADO (CATÁLOGO)
--- ----------------------
+
 CREATE TABLE estado (
     id_estado SERIAL PRIMARY KEY,
     nombre    VARCHAR(50) NOT NULL UNIQUE
 );
 
--- ----------------------
--- ENCOMIENDA
--- ----------------------
+
 CREATE TABLE encomienda (
     id_encomienda      SERIAL PRIMARY KEY,
     fecha_envio        DATE NOT NULL,
@@ -82,9 +69,7 @@ CREATE TABLE encomienda (
         ON UPDATE CASCADE
 );
 
--- ----------------------
--- HISTORIAL DE ESTADOS
--- ----------------------
+
 CREATE TABLE historial_estado (
     id_historial SERIAL PRIMARY KEY,
     fecha_estado TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -142,13 +127,14 @@ VALUES
 
     INSERT INTO historial_estado (id_encomienda, id_estado)
     VALUES
-    (7, 1),  -- Recibida
-    (7, 2),  -- En tránsito
-    (8, 1);  -- Recibida
+    (7, 1),  
+    (7, 2),  
+    (8, 1);  
 
 SELECT id_encomienda FROM encomienda;
 
 --Ver encomiendas con cliente y sucursales
+
 SELECT
     e.id_encomienda,
     c.nombre AS cliente,
@@ -173,6 +159,7 @@ JOIN estado es ON es.id_estado = h.id_estado
 ORDER BY e.id_encomienda, h.fecha_estado;
 
 --Estado actual de cada encomienda (último estado)
+
 SELECT
     e.id_encomienda,
     es.nombre AS estado_actual,

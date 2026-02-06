@@ -15,11 +15,6 @@ SELECT * FROM detalle_pedido;
 SELECT * FROM pago;
 
 
-
--- ==========================
--- SISTEMA RETAIL
--- ==========================
-
 CREATE TABLE cliente (
     id_cliente SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -109,7 +104,7 @@ INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad, precio_unitario) V
 
 --SELECT DE PRUEBA
 
---Total vendido por pedido (recalculado)
+--Total vendido por pedido
 
 SELECT
     pe.id_pedido,
